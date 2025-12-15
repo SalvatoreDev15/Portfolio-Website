@@ -1,0 +1,265 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    /*In pratica imposta delle costanti di colori*/
+    --primary-color: #007bff;      /* Blu principale */
+    --dark-bg: #222;               /* Sfondo scuro per footer/contatti */
+    --light-bg: #f9f9f9;           /* Sfondo chiaro alternato */
+    --text-color: #333;
+    --white: #ffffff;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --light-bg-alt: #e9ecef;       /* Un grigio leggermente diverso per la nuova sezione */
+    --wip-color: #6c757d;          /* Colore grigio per le card "non finite" */
+}
+
+/* RESET UNIVERSALE */
+* {
+    margin: 0;
+    padding: 0;
+    /* Box-Sizing: Fondamentale! Fa sì che padding e border siano inclusi 
+       nella larghezza totale dell'elemento, evitando calcoli matematici complessi. */
+    box-sizing: border-box; 
+}
+
+html {
+    scroll-behavior: smooth; /* Scorrimento morbido quando clicchi i link */
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white);
+}
+
+/* =========================================
+   2. UTILITY CLASSES
+   ========================================= */
+.container {
+    width: 90%;
+    max-width: 1100px; /* Non far allargare troppo il sito su schermi giganti */
+    margin: 0 auto;    /* Centra il blocco orizzontalmente */
+}
+
+.bg-light-alt { background-color: var(--light-bg-alt); }
+
+/*Utile per separazione uniforme e simmetrica */
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-light { background-color: var(--light-bg); }
+.bg-dark { background-color: var(--dark-bg); color: var(--white); }
+.text-center { text-align: center; }
+
+/* Bottoni */
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: transform 0.2s, opacity 0.2s; /* Animazione al passaggio del mouse */
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-2px); /* Effetto "sollevamento" */
+    opacity: 0.9;
+}
+
+.btn-primary { background-color: var(--primary-color); color: var(--white); }
+.btn-secondary { background-color: var(--white); color: var(--primary-color); font-weight: bold; }
+
+/* Evidenziatore testo */
+.highlight { color: var(--primary-color); }
+
+/* =========================================
+   3. HEADER & NAV (Flexbox)
+   ========================================= */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra leggera sotto il menu */
+    padding: 1rem 0;
+    position: sticky; /* Il menu rimane in alto mentre scorri */
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    /* FLEXBOX: Ottimo per allineare elementi in una dimensione (riga o colonna) */
+    display: flex; 
+    justify-content: space-between; /* Spinge logo a sx e menu a dx */
+    align-items: center;
+}
+
+.logo { font-weight: bold; font-size: 1.2rem; color: var(--primary-color); }
+
+.nav-links { list-style: none; display: flex; }
+.nav-links li { margin-left: 20px; }
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.nav-links a:hover { color: var(--primary-color); }
+
+/* =========================================
+   4. SECTIONS
+   ========================================= */
+/* Hero Section *//*Ovvero parte principale della HOME*/
+#home {
+    height: 95vh; /* Aumentiamo leggermente l'altezza */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white); /* IMPORTANTE: Testo bianco perché lo sfondo ora è scuro */
+
+    /* --- GESTIONE SFONDO --- */
+    /* Usiamo due livelli:
+       1. Un gradiente nero semi-trasparente (rgba 0,0,0,0.7) che sta SOPRA l'immagine.
+          Serve a scurire l'immagine per rendere il testo leggibile.
+       2. L'url() dell'immagine presa dal web.
+    */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    
+    /* Assicura che l'immagine copra tutto lo spazio senza deformarsi */
+    background-size: cover; 
+    background-position: center; 
+    
+    /* (Opzionale) Effetto Parallasse: l'immagine sta ferma mentre scorri */
+    background-attachment: fixed; 
+}
+#home h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+
+/* Aggiungiamo una classe subtitle per renderla più visibile sullo sfondo */
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    opacity: 0.9; /* Leggermente trasparente */
+}
+
+/* STILI SPECIFICI PER WIP (Work In Progress) */
+.wip-card {
+    border: 2px dashed #999; /* Bordo un po' più visibile */
+    background-color: transparent;
+}
+
+.wip-card h3 {
+    /* Prima era var(--wip-color), ora usiamo il colore standard */
+    color: var(--text-color); 
+    font-size: 1.1rem;
+    font-weight: 700; /* Grassetto marcato */
+}
+
+.wip-card p {
+    font-size: 0.95rem;
+    /* Prima era #555 (grigio), ora usiamo un nero morbido standard */
+    color: #222; 
+    font-weight: 400; /* Peso normale ma ben leggibile */
+}
+
+/* Indicatori colorati (In costruzione, Idea futura...) */
+.status-indicator {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+/* Colori diversi in base allo stato */
+.building { background-color: #ffc107; color: #212529; } /* Giallo */
+.planned { background-color: #6c757d; } /* Grigio */
+.learning { background-color: #17a2b8; } /* Ciano */
+.update { background-color: #6f42c1;}
+
+/* About Section & Skills */
+.about-grid {
+    display: grid;
+    /* Crea due colonne: una larga 2 parti, l'altra 1 parte */
+    grid-template-columns: 2fr 1fr; 
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.skills-list {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.skills-list li {
+    background: #e9ecef;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--primary-color); /* Accento colorato a sinistra */
+    font-size: 0.9rem;
+}
+
+/* Projects Section (Grid) */
+.project-grid {
+    /* GRID: Ottimo per layout bidimensionali (righe E colonne) */
+    display: grid;
+    /* Responsive automatico: crea colonne minime di 300px finché c'è spazio */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.project-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: box-shadow 0.3s;
+}
+
+.project-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================================
+   5. FOOTER & MEDIA QUERIES
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #111;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.socials { margin-top: 20px; }
+.socials a { color: var(--white); margin: 0 10px; text-decoration: none; }
+
+/* Adattamento per Cellulari (Media Queries) */
+@media (max-width: 768px) {
+    #home h1 { font-size: 2rem; }
+    
+    .about-grid {
+        grid-template-columns: 1fr; /* Diventa una sola colonna su mobile */
+    }
+    
+    .nav-links {
+        display: none; /* Nascondiamo il menu su mobile per semplicità in questa fase */
+        /* Nota: In un sito avanzato qui si farebbe un menu ad hamburger */
+    }
+    
+    header .container {
+        justify-content: center; /* Centra il logo */
+    }
+}
